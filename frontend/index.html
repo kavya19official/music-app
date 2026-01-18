@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Auralyn | Mood-Aware Music</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="container">
+    <h1>🎧 Auralyn</h1>
+    <p>Mood-aware music recommendations</p>
+
+    <div class="mood-box">
+      <label for="mood">Select your mood:</label>
+      <select id="mood">
+        <option value="happy">Happy</option>
+        <option value="sad">Sad</option>
+        <option value="calm">Calm</option>
+        <option value="energetic">Energetic</option>
+      </select>
+
+      <button onclick="getRecommendations()">Get Playlist</button>
+    </div>
+
+    <div id="playlist" class="playlist"></div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
