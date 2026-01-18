@@ -1,25 +1,44 @@
-async function getRecommendations() {
-  const mood = document.getElementById("mood").value;
-  const playlistDiv = document.getElementById("playlist");
+const moodButtons = document.querySelectorAll(".mood");
+const playlist = document.getElementById("playlist");
+const statusText = document.getElementById("status");
 
-  playlistDiv.innerHTML = "<p>Loading recommendations...</p>";
+moodButtons.forEach(button => {
+  button.addEventListener("click", () => {
+    const mood = button.dataset.mood;
+    fetchRecommendations(mood);
+  });
+});
+
+async function fetchRecommendations(mood) {
+  playlist.innerHTML = "";
+  statusText.innerText = "Analyzing mood and generating recommendations...";
 
   try {
-    // Change URL to your backend endpoint
-    const response = await fetch(`http://localhost:5000/recommend?mood=${mood}`);
+    const response = await fetch(
+      `http://localhost:5000/recommend?mood=${mood}`
+    );
+
+    if (!response.ok) {
+      throw new Error("API Error");
+    }
+
     const data = await response.json();
 
-    playlistDiv.innerHTML = "<h3>Recommended Tracks</h3>";
+    statusText.innerText = `Playlist for "${mood}" mood`;
 
     data.tracks.forEach(track => {
-      const trackDiv = document.createElement("div");
-      trackDiv.className = "track";
-      trackDiv.innerText = `${track.title} — ${track.artist}`;
-      playlistDiv.appendChild(trackDiv);
+      const li = document.createElement("li");
+      li.className = "track";
+      li.innerText = `${track.title} — ${track.artist}`;
+      playlist.appendChild(li);
     });
 
+    if (data.tracks.length === 0) {
+      statusText.innerText = "No recommendations found.";
+    }
+
   } catch (error) {
-    playlistDiv.innerHTML = "<p>Failed to load recommendations.</p>";
+    statusText.innerText = "Failed to fetch recommendations. Please try again.";
     console.error(error);
   }
 }
