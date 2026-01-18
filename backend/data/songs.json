@@ -1,0 +1,97 @@
+{
+  "calm": [
+    {
+      "id": "calm_01",
+      "title": "Weightless",
+      "artist": "Marconi Union",
+      "genre": ["ambient", "chill"],
+      "energy": "low",
+      "tempo": 60,
+      "instrumental": true,
+      "modes": ["personal", "wellness", "business"],
+      "useCase": "stress_reduction",
+      "transition": ["calm", "neutral"]
+    },
+    {
+      "id": "calm_02",
+      "title": "River",
+      "artist": "Leon Bridges",
+      "genre": ["soul", "soft-pop"],
+      "energy": "medium",
+      "tempo": 75,
+      "instrumental": false,
+      "modes": ["personal", "wellness"],
+      "useCase": "emotional_balance",
+      "transition": ["calm", "happy"]
+    }
+  ],
+
+  "happy": [
+    {
+      "id": "happy_01",
+      "title": "Happy",
+      "artist": "Pharrell Williams",
+      "genre": ["pop"],
+      "energy": "high",
+      "tempo": 160,
+      "instrumental": false,
+      "modes": ["personal", "social"],
+      "useCase": "mood_lift",
+      "transition": ["happy", "energetic"]
+    },
+    {
+      "id": "happy_02",
+      "title": "Good as Hell",
+      "artist": "Lizzo",
+      "genre": ["pop", "dance"],
+      "energy": "high",
+      "tempo": 170,
+      "instrumental": false,
+      "modes": ["social"],
+      "useCase": "confidence_boost",
+      "transition": ["happy", "energetic"]
+    }
+  ],
+
+  "energetic": [
+    {
+      "id": "energy_01",
+      "title": "Believer",
+      "artist": "Imagine Dragons",
+      "genre": ["rock"],
+      "energy": "high",
+      "tempo": 175,
+      "instrumental": false,
+      "modes": ["personal", "social", "events"],
+      "useCase": "high_energy",
+      "transition": ["energetic", "happy"]
+    },
+    {
+      "id": "energy_02",
+      "title": "Titanium",
+      "artist": "Sia",
+      "genre": ["edm", "pop"],
+      "energy": "high",
+      "tempo": 180,
+      "instrumental": false,
+      "modes": ["social", "events"],
+      "useCase": "crowd_boost",
+      "transition": ["energetic"]
+    }
+  ],
+
+  "neutral": [
+    {
+      "id": "neutral_01",
+      "title": "Lo-Fi Beats",
+      "artist": "Chillhop",
+      "genre": ["lofi"],
+      "energy": "medium",
+      "tempo": 90,
+      "instrumental": true,
+      "modes": ["personal", "business"],
+      "useCase": "focus",
+      "transition": ["neutral", "calm"]
+    }
+  ]
+}
