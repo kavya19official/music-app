@@ -2,13 +2,27 @@ const express = require('express');
 const router = express.Router();
 const musicEngine = require('../services/musicEngine');
 
-router.get('/:mood', (req, res) => {
-  const mood = req.params.mood;
-  const playlist = musicEngine(mood);
+/**
+ * GET /api/playlist
+ * Query Params:
+ * mood: calm | happy | energetic | neutral
+ * mode: personal | social | wellness | business
+ * energy: low | medium | high
+ */
+router.get('/', (req, res) => {
+  const {
+    mood = "neutral",
+    mode = "personal",
+    energy = "medium"
+  } = req.query;
+
+  const result = musicEngine({ mood, mode, energy });
 
   res.json({
-    mood,
-    playlist
+    success: true,
+    context: { mood, mode, energy },
+    explanation: result.explanation,
+    playlist: result.playlist
   });
 });
 
