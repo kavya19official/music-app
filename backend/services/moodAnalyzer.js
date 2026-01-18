@@ -1,42 +1,51 @@
-module.exports = (text = "", noiseLevel = 0) => {
+module.exports = (text = "", noiseLevel = 0, mode = "personal") => {
   const t = text.toLowerCase();
 
-  // Emotion score buckets
   let scores = {
     calm: 0,
     happy: 0,
     energetic: 0,
     stressed: 0,
-    neutral: 0
+    neutral: 1
   };
 
-  // 🔤 Text-based emotion keywords
-  const keywordMap = {
-    calm: ["relax", "peace", "tired", "sleep", "slow"],
-    happy: ["happy", "joy", "excited", "smile", "fun"],
-    stressed: ["stress", "anxious", "pressure", "tense"],
-    energetic: ["party", "dance", "gym", "hype"]
+  const keywords = {
+    calm: ["relax", "peace", "sleep", "slow", "tired"],
+    happy: ["happy", "joy", "excited", "fun", "smile"],
+    energetic: ["party", "dance", "gym", "hype"],
+    stressed: ["stress", "anxious", "pressure", "tense"]
   };
 
-  // Analyze text
-  for (const mood in keywordMap) {
-    keywordMap[mood].forEach(word => {
+  for (const mood in keywords) {
+    keywords[mood].forEach(word => {
       if (t.includes(word)) scores[mood] += 2;
     });
   }
 
-  // 🔊 Noise-based analysis
+  // 🔊 Noise fusion
   if (noiseLevel > 85) scores.energetic += 3;
   else if (noiseLevel > 60) scores.happy += 2;
   else if (noiseLevel < 30) scores.calm += 2;
 
-  // ⚖️ Stress overrides
-  if (scores.stressed >= 3) return "calm";
+  // 🧘 Mode influence
+  if (mode === "wellness") scores.calm += 2;
+  if (mode === "social") scores.energetic += 2;
 
-  // 🎯 Pick highest score
-  const detectedMood = Object.keys(scores).reduce((a, b) =>
+  // 🛑 Stress override
+  let finalMood = Object.keys(scores).reduce((a, b) =>
     scores[a] > scores[b] ? a : b
   );
 
-  return detectedMood || "neutral";
+  if (finalMood === "stressed") finalMood = "calm";
+
+  const confidence = Math.min(scores[finalMood] * 20, 100);
+
+  return {
+    mood: finalMood,
+    confidence,
+    explanation: {
+      scores,
+      dominantSignal: noiseLevel > 70 ? "environment" : "text"
+    }
+  };
 };
